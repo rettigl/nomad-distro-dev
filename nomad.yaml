@@ -1,0 +1,20 @@
+keycloak:
+  realm_name: "fairdi_nomad_test"
+
+
+plugins:
+  # We only include our schema here. Without the explicit include, all plugins will be
+  # loaded. Many build in plugins require more dependencies. Install nomad-lab[parsing]
+  # to make all default plugins work.
+  include:
+    - 'apps/1_all/1_entries'
+    - 'apps/3_experiment/1_eln'
+    - 'pynxtools.nomad.entrypoints:nexus_app'
+    - 'pynxtools.nomad.entrypoints:nexus_parser'
+    - 'pynxtools.nomad.entrypoints:nexus_data_converter'
+    - 'pynxtools.nomad.entrypoints:nexus_schema'
+    - 'pynxtools_mpes.nomad.entrypoints:mpes_example'
+    - 'pynxtools_mpes.nomad.entrypoints:mpes_app'
+
+  exclude:
+    # - 'pynxtools.nomad.entrypoints:nexus_parser'
