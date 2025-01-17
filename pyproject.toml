@@ -11,7 +11,7 @@ dependencies = [
   #'nomad-porous-materials; sys_platform != "win32"',
   #"nomad-aitoolkit",
   #"nomad-simulations==0.0.1",
-  "pynxtools==0.9.3",
+  "pynxtools",
   "pynxtools-mpes>=0.2",
   #"nomad-schema-plugin-run>=1.0.1",
   #"nomad-schema-plugin-simulation-workflow>=1.0.1",
@@ -34,6 +34,7 @@ members = ["packages/*"]
 [tool.uv.sources]
 nomad-lab = { workspace = true }
 pynxtools-mpes = { workspace = true }
+pynxtools = { workspace = true }
 
 [tool.uv]
 extra-index-url = [
