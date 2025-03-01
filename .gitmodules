@@ -7,3 +7,6 @@
 [submodule "packages/pynxtools"]
 	path = packages/pynxtools
 	url = git@github.com:FAIRmat-NFDI/pynxtools.git
+[submodule "packages/fhi-sed-config"]
+	path = packages/fhi-sed-config
+	url = git@github.com:OpenCOMPES/fhi_sed_config.git
