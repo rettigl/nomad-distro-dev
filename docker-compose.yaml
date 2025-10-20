@@ -64,6 +64,7 @@ services:
     volumes:
       - nomad_mongo:/data/db
       - nomad_mongo_config:/data/configdb
+      - ./.volumes/mongo:/backup
     command: mongod
     # --logpath=/dev/null # --quiet
 

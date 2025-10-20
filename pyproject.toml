@@ -26,6 +26,9 @@ dependencies = [
   #"nomad-parser-plugins-atomistic>=1.0",
   #"nomad-parser-plugins-workflow>=1.0",
   #"nomad-parser-plugins-database>=1.0",
+  "fhi-sed-config",
+  "oasis_optimal_footer_pages",
+  #"nomad-utility-workflows",
 ]
 
 [tool.uv.workspace]
@@ -35,6 +38,8 @@ members = ["packages/*"]
 nomad-lab = { workspace = true }
 pynxtools-mpes = { workspace = true }
 pynxtools = { workspace = true }
+fhi-sed-config = { workspace = true }
+oasis_optimal_footer_pages = { workspace = true }
 
 [tool.uv]
 extra-index-url = [
@@ -48,7 +53,7 @@ dev-dependencies = [
 [tool.poe.tasks]
 submodule = "git submodule update --init --recursive"
 docker = "docker compose up -d"
-start = "nomad admin run appworker"
+start = "nomad admin run appworker --dev"
 setup = ["submodule", "gui-env", "gui-setup", "docker"]
 lint = ["ruff-lint", "ruff-format"]
 

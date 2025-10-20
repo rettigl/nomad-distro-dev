@@ -10,3 +10,6 @@
 [submodule "packages/fhi-sed-config"]
 	path = packages/fhi-sed-config
 	url = git@github.com:OpenCOMPES/fhi_sed_config.git
+[submodule "packages/oasis_optimal_footer_pages"]
+	path = packages/oasis_optimal_footer_pages
+	url = git@github.com:rettigl/oasis_optimal_footer_pages.git

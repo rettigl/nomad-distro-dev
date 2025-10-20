@@ -1,6 +1,115 @@
 keycloak:
   realm_name: "fairdi_nomad_test"
 
+services:
+  upload_limit: 1000000
+
+north:
+  jupyterhub_crypt_key: "12827c31513523b3534209e4280267076705059deaf55d45861eebd6242e408f"
+  enabled: true
+  tools:
+    include:
+      - mpes-desktop
+      - wine
+      - mpes
+      - fiji
+    options:
+      mpes-desktop:
+        short_description: A new jupyter desktop container for ARPES analysis containing Igor pro.
+        description: A new jupyter desktop container for ARPES analysis containing Igor pro.
+        image: nomad/mpes
+        mount_path: /home/jovyan
+        path_prefix: lab/tree
+        with_path: true
+        privileged: false
+        seccomp_unconfined: true
+        use_gpu: true
+        file_extensions:
+          - ipynb
+        external_mounts:
+          - host_path: /mnt/pcshare
+            bind: pcshare
+            mode: ro
+          - host_path: /scratch/localDataStore
+            bind: localDataStore
+            mode: rw
+          - host_path: /mnt/topfloor
+            bind: topfloor
+            mode: ro
+        maintainer:
+          - name: Laurenz Rettig
+            email: rettig@fhi-berlin.mpg.de
+
+      wine:
+        short_description: Wine desktop
+        description: A new desktop container for wine applications.
+        image: nomad/igor
+        mount_path: /home/jovyan
+        with_path: false
+        file_extensions:
+          - ipynb
+            #        external_mounts:
+            #          - host_path: /mnt/pcshare
+            #            bind: pcshare
+            #            mode: ro
+            #          - host_path: /scratch/localDataStore
+            #            bind: localDataStore
+            #            mode: rw
+            #          - host_path: /mnt/topfloor
+            #            bind: topfloor
+            #            mode: ro
+        maintainer:
+          - name: Laurenz Rettig
+            email: rettig@fhi-berlin.mpg.de
+
+
+      mpes:
+        short_description: A webtop container for ARPES analysis.
+        description: A webtop container for ARPES analysis.
+        image: gitlab-registry.mpcdf.mpg.de/nomad-lab/north/mpes/webtop-fhi:latest
+        mount_path: /config
+        privileged: 1
+        file_extensions:
+          - ipynb
+          - nxs
+          - h5
+          - hdf5
+        external_mounts:
+          - host_path: /mnt/pcshare
+            bind: pcshare
+            mode: ro
+          - host_path: /scratch/localDataStore
+            bind: localDataStore
+            mode: rw
+          - host_path: /mnt/topfloor
+            bind: topfloor
+            mode: ro
+        maintainer:
+          - name: Laurenz Rettig
+            email: rettig@fhi-berlin.mpg.de
+
+
+      fiji:
+        short_description: A jupyter container for ImageJ
+        description: A jupyter container for ImageJ.
+        image: gitlab-registry.mpcdf.mpg.de/nomad-lab/north/fiji:weptop-replacement
+        mount_path: /home/jovyan
+        external_mounts: []
+        file_extensions:
+          - tif
+          - tiff
+          - jpeg
+          - png
+          - gif
+          - bmp
+          - avi
+        image_pull_policy: Always
+        privileged: true
+        maintainer:
+          - name: Laurenz Rettig
+            email: rettig@fhi-berlin.mpg.de
+        with_path: false
+
 
 plugins:
   # We only include our schema here. Without the explicit include, all plugins will be
@@ -15,6 +124,7 @@ plugins:
     - 'pynxtools.nomad.entrypoints:nexus_schema'
     - 'pynxtools_mpes.nomad.entrypoints:mpes_example'
     - 'pynxtools_mpes.nomad.entrypoints:mpes_app'
+    - 'oasis_optimal_footer_pages.apis:oasis_optimal_footer_pages'
 
   exclude:
     # - 'pynxtools.nomad.entrypoints:nexus_parser'
